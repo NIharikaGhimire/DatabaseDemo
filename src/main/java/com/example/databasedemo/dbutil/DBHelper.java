@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "studentdb";
     private SQLiteDatabase db;
-
+//reference ko lagi
    public DBHelper(Context c){
 
        //version no change garyo bhne balla onupgrade call huncha
@@ -46,6 +46,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void insertDataToDb(StudentModel studentModel) {
 //       content value : function
+        //row
        //SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("name", studentModel.getName());
@@ -54,10 +55,13 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put("sem",studentModel.getSem());
         db.insert("students", null, cv);
     }
+    //read garne part
 
     public ArrayList<StudentModel> retrieveData() {
+       //aauta index ma 5 wata value save
        ArrayList<StudentModel> data = new ArrayList<>();
        String query = "Select * from students";
+       //pointer
         Cursor cursor = db.rawQuery(query,null);
         if(cursor.moveToFirst()){
             do{
@@ -69,8 +73,24 @@ public class DBHelper extends SQLiteOpenHelper {
                 st.setSem(cursor.getInt(4));
                 data.add(st);
 
-            }while(cursor.moveToNext());
+            }while(cursor.moveToNext());//end of table
         }
        return data;
     }
+
+    public void deleteRecord(int stdid) {
+       db.execSQL("DELETE from students where stid ="+stdid);
+
+    }
+
+    public void updateRecord(StudentModel studentModel){
+       ContentValues cv = new ContentValues();
+       cv.put("name", studentModel.getName());
+       //String[] whereArgs=String.valueOf(studentModel.getStdid().split(" "));
+       db.update("students",cv, "stid =" + studentModel.getStdid(),null);
+
+
+    }
+
+
 }

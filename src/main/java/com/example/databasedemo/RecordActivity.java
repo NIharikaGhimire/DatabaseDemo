@@ -12,7 +12,8 @@ import com.example.databasedemo.model.StudentModel;
 
 import java.util.ArrayList;
 
-public class RecordActivity extends AppCompatActivity {
+public class
+RecordActivity extends AppCompatActivity {
     private RecyclerView rv;
     private ArrayList<StudentModel> studentModel;
 
@@ -27,6 +28,9 @@ public class RecordActivity extends AppCompatActivity {
         studentModel = db.retrieveData();
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(new CustomAdapter(this,studentModel));
+
+
+
 
     }
 }
